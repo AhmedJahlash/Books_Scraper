@@ -18,7 +18,8 @@ def create_table():
             id INTEGER PRIMARY KEY,
             title TEXT NOT NULL UNIQUE,
             price REAL NOT NULL,
-            availability TEXT NOT NULL
+            availability TEXT NOT NULL,
+            rating TEXT NOT NULL
         )
     """)
     conn.commit()
@@ -36,12 +37,13 @@ def insert_books(books_data):
 
     for book in unique_books.values():
         cursor.execute("""
-            INSERT INTO books (title, price, availability)
-            VALUES (?, ?, ?)
+            INSERT INTO books (title, price, availability, rating)
+            VALUES (?, ?, ?, ?)
         """, (
             book["title"],
             book["price"],
-            book["availability"]
+            book["availability"],
+            book["rating"]
         ))
 
     conn.commit()
@@ -49,4 +51,4 @@ def insert_books(books_data):
 def close_connection():
     conn.close()
     
-    
+
